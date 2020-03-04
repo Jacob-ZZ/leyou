@@ -79,7 +79,7 @@
         isEdit: false, // 是否是编辑
       }
     },
-    mounted() { // 渲染后执行
+    mounted() { // 渲染后执行(钩子函数，声明周期中)
       // 查询数据
       this.getDataFromServer();
     },
