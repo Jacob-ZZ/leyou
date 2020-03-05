@@ -41,7 +41,7 @@ public class FastDFSTest {
         File file = new File("C:\\Users\\Q6055\\Desktop\\123.jpg");
         // 上传并且生成缩略图
         StorePath storePath = this.storageClient.uploadImageAndCrtThumbImage(
-                new FileInputStream(file), file.length(), "png", null);
+                new FileInputStream(file), file.length(), "jpg", null);
         // 带分组的路径
         System.out.println(storePath.getFullPath());
         // 不带分组的路径
