@@ -13,6 +13,7 @@
         <module>leyou-registry</module>
         <module>leyou-item</module>
         <module>leyou-upload</module>
+        <module>leyou-search</module>
     </modules>
 
     <packaging>pom</packaging>

@@ -48,4 +48,13 @@ public class CategoryController {
 //        //500
 //        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+    @GetMapping("names")
+    public ResponseEntity<List<String>> queryNamesByIds(@RequestParam("ids")List<Long> ids){
+
+        List<String> names = this.categoryService.queryNamesByIds(ids);
+        if (CollectionUtils.isEmpty(names)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(names);
+    }
 }
