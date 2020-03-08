@@ -7,6 +7,9 @@ public class PageResult<T> {
     private Integer totalPage;
     private List<T> items;
 
+    public PageResult() {
+    }
+
     public PageResult(Long total) {
         this.total = total;
     }

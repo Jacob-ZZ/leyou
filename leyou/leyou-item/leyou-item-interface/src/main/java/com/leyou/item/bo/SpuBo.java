@@ -15,6 +15,7 @@ public class SpuBo extends Spu {
     SpuDetail spuDetail;// 商品详情
     List<Sku> skus;// sku列表
 
+
     public SpuDetail getSpuDetail() {
         return spuDetail;
     }
@@ -47,5 +48,5 @@ public class SpuBo extends Spu {
         this.bname = bname;
     }
 
-    // 略 。。
+
 }

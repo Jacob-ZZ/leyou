@@ -16,6 +16,8 @@ public class LeyouCorsConfiguration {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         //允许跨域的域名 允许的域,不要写*，否则cookie就无法使用了
         corsConfiguration.addAllowedOrigin("http://manage.leyou.com");
+        corsConfiguration.addAllowedOrigin("http://www.leyou.com");
+
         corsConfiguration.setAllowCredentials(true);//允许携带cookie
         corsConfiguration.addAllowedMethod("*");//代表所有的请求方法
         corsConfiguration.addAllowedHeader("*");//允许携带所有头信息

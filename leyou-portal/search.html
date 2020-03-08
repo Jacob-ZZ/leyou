@@ -760,6 +760,28 @@
     var vm = new Vue({
         el: "#searchApp",
         data: {
+            search:{
+                key:"", // 搜索页面的关键字
+            },
+            goodsList: []
+        },
+        created(){
+            if (!location.search){
+                return;
+            }
+            const search = ly.parse(location.search.substring(1));
+            this.search = search;
+            //异步请求
+            this.loadData();
+        },
+        methods:{
+            loadData(){
+                ly.http.post("/search/page",this.search).then(res=>{
+                    console.log(res);
+                }).catch(()=>{
+
+                });
+            }
         },
 
         components:{
