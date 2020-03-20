@@ -65,7 +65,7 @@ public class SearchService {
         Brand brand = this.brandClient.queryBrandById(spu.getBrandId());
 
         //spu下所有sku
-        List<Sku> skus = this.goodsClient.querySkuBySpuId(spu.getId());
+        List<Sku> skus = this.goodsClient.querySkusBySpuId(spu.getId());
         //初始化一个sku价格集合
         ArrayList<Long> prices = new ArrayList<>();
         //收集sku的必要字段信息
