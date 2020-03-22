@@ -40,7 +40,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping
+    @GetMapping("query")
     public ResponseEntity<User> queryUser(@RequestParam("username")String username,@RequestParam("password")String password){
         User user = this.userService.queryUser(username,password);
         if (user == null){
