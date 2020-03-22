@@ -198,4 +198,8 @@ public class GoodsService {
             e.printStackTrace();
         }
     }
+
+    public Sku querySkuBySkuId(Long skuId) {
+        return this.skuMapper.selectByPrimaryKey(skuId);
+    }
 }
