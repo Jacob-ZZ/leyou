@@ -20,7 +20,7 @@
 		<div class="top"></div>
     	<script type="text/javascript">$(".top").load("shortcut.html");</script>
 		
-		<div class="cart py-container">
+		<div class="cart py-container" id="payApp">
 			<!--logoArea-->
 			<div class="logoArea">
 				<div class="fl logo"><span class="title">收银台</span></div>
@@ -33,7 +33,7 @@
 			
 			<div class="checkout py-container  pay">
 				<div class="checkout-tit">
-					<h4 class="fl tit-txt"><span class="success-icon"></span><span  class="success-info">订单提交成功，请您及时付款！订单号：56789065645</span></h4>
+					<h4 class="fl tit-txt"><span class="success-icon"></span><span  class="success-info">订单提交成功，请您及时付款！订单号：{{orderId}}</span></h4>
                     <span class="fr"><em class="sui-lead">应付金额：</em><em  class="orange money">￥17,654</em>元</span>
 					<div class="clearfix"></div>
 				</div>				
@@ -42,7 +42,7 @@
                     <div class="fl sao"> 
                         <p class="red">二维码已过期，刷新页面重新获取二维码。</p>                      
                         <div class="fl code">
-                            <img src="img/erweima.png" alt="">
+							<div id="qrcode"></div>
                             <div class="saosao">
                                 <p>请使用微信扫一扫</p>
                                 <p>扫描二维码支付</p>
@@ -79,6 +79,54 @@
 				})
 			})
 		</script>
+<script src="./js/vue/vue.js"></script>
+<script src="./js/axios.min.js"></script>
+<script src="./js/common.js"></script>
+<script src="./js/qrcode.js"></script>
+<script type="text/javascript">
+	var payVm = new Vue({
+		el: "#payApp",
+		data: {
+			orderId: 0
+		},
+		created(){
+			ly.verify().then(res=>{
+				this.orderId = ly.getUrlParam("orderId");
+				ly.http.get("/order/order/url/"+this.orderId).then(({data})=>{
+					new QRCode("qrcode", {
+						text: data,
+						width: 250,
+						height: 250,
+						colorDark: "#000000",
+						colorLight: "#ffffff",
+						correctLevel: QRCode.CorrectLevel.H
+					});
+				})
+				// 开启定时任务，查询付款状态
+				const taskId = setInterval(() => {
+					ly.http.get("/order/order/state/" + this.orderId)
+							.then(resp => {
+								let i = resp.data;
+								if (i === 1) {
+									// 付款成功
+									clearInterval(taskId);
+									// 跳转到付款成功页
+									location.href = "/paysuccess.html?orderId=" + this.orderId;
+								} else if (i === 2) {
+									// 付款失败
+									clearInterval(taskId);
+									// 跳转到付款失败页
+									location.href = "/payfail.html";
+								}
+							})
+				}, 3000);
+			}).catch(() => {
+				//未登录
+				window.location = "http://www.leyou.com/login.html?returnUrl=http://www.leyou.com/pay.html";
+			})
+		}
+	});
+</script>
 </body>
 
 </html>

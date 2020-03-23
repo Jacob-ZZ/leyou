@@ -16,6 +16,7 @@ zuul:
     user-service: /user/** #用户微服务
     auth-service: /auth/** #微服务
     cart-service: /cart/** #购物车
+    order-service: /order/** #订单
   add-host-header: true
   sensitive-headers:  #覆盖敏感头信息
 leyou:
